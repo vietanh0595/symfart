@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}Symfart Article{% endblock %}
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        {% if articles %}
+            <table id="table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Article Title</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                        <tr>
+                            <td>{{ article.title }}</td>
+                            <td>
+                                <a href="/article/{{ article.id }}" class="btn btn-dark">Show</a>
+                                <a href="#" class="btn btn-danger delete-article" data-id="{{ article.id }}">Delete</a>
+                                <a href="/article/edit/{{ article.id }}" class="btn btn-warning edit-article">Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1> no articles </h1>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}
+
+
